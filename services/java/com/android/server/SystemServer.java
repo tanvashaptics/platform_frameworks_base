@@ -92,6 +92,9 @@ import com.android.server.wallpaper.WallpaperManagerService;
 import com.android.server.webkit.WebViewUpdateService;
 import com.android.server.wm.WindowManagerService;
 
+import co.tanvas.haptics.TanvasHapticManager;
+import co.tanvas.haptics.HapticBinderStub;
+
 import dalvik.system.VMRuntime;
 
 import java.io.File;
@@ -429,6 +432,7 @@ public final class SystemServer {
         MmsServiceBroker mmsService = null;
         EntropyMixer entropyMixer = null;
         CameraService cameraService = null;
+	HapticBinderStub hapticBinder = null;
 
         boolean disableStorage = SystemProperties.getBoolean("config.disable_storage", false);
         boolean disableBluetooth = SystemProperties.getBoolean("config.disable_bluetooth", false);
@@ -493,9 +497,19 @@ public final class SystemServer {
             final Watchdog watchdog = Watchdog.getInstance();
             watchdog.init(context, mActivityManagerService);
 
+	    File disableTanvas = new File("/data/disable_tanvas");
             Slog.i(TAG, "Input Manager");
             inputManager = new InputManagerService(context);
-
+	    if (disableTanvas.exists() == false)
+            {
+                Slog.i(TAG, "Haptic Manager");
+                hapticBinder = new HapticBinderStub();
+                ServiceManager.addService(Context.TANVAS_HAPTIC_SERVICE, hapticBinder);
+            }
+            else
+            {
+                Slog.i(TAG, "Skipping haptic manager ");
+            }
             Slog.i(TAG, "Window Manager");
             wm = WindowManagerService.main(context, inputManager,
                     mFactoryTestMode != FactoryTest.FACTORY_TEST_LOW_LEVEL,
@@ -1087,6 +1101,7 @@ public final class SystemServer {
         final MediaRouterService mediaRouterF = mediaRouter;
         final AudioService audioServiceF = audioService;
         final MmsServiceBroker mmsServiceF = mmsService;
+	final HapticBinderStub hapticManagerF = hapticBinder;
 
         // We now tell the activity manager it is okay to run third party
         // code.  It will call back into us once it has gotten to the state
@@ -1216,6 +1231,13 @@ public final class SystemServer {
                 } catch (Throwable e) {
                     reportWtf("Notifying MmsService running", e);
                 }
+		try
+		{
+			if (hapticManagerF != null) hapticManagerF.initializeSystem();
+		}
+		catch (Throwable e)
+		{
+		}
             }
         });
     }

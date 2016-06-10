@@ -413,6 +413,7 @@ LOCAL_SRC_FILES += \
 	packages/services/PacProcessor/com/android/net/IProxyService.aidl \
 	packages/services/Proxy/com/android/net/IProxyCallback.aidl \
 	packages/services/Proxy/com/android/net/IProxyPortListener.aidl \
+	core/java/co/tanvas/haptics/ITanvasHapticService.aidl \
 
 # FRAMEWORKS_BASE_JAVA_SRC_DIRS comes from build/core/pathmap.mk
 LOCAL_AIDL_INCLUDES += $(FRAMEWORKS_BASE_JAVA_SRC_DIRS)
@@ -620,6 +621,9 @@ aidl_files := \
 	frameworks/base/core/java/android/bluetooth/le/ScanResult.aidl \
 	frameworks/base/core/java/android/bluetooth/BluetoothDevice.aidl \
 	frameworks/base/core/java/android/database/CursorWindow.aidl \
+	frameworks/base/core/java/co/tanvas/haptics/ITanvasHapticService.aidl \
+	frameworks/base/core/java/co/tanvas/haptics/SerializedByteBuffer.aidl \
+	frameworks/base/core/java/co/tanvas/haptics/SerializedSizeF.aidl \
 
 gen := $(TARGET_OUT_COMMON_INTERMEDIATES)/framework.aidl
 $(gen): PRIVATE_SRC_FILES := $(aidl_files)

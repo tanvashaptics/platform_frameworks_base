@@ -2511,6 +2511,7 @@ public abstract class Context {
             MEDIA_PROJECTION_SERVICE,
             MIDI_SERVICE,
             RADIO_SERVICE,
+            TANVAS_HAPTIC_SERVICE,
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface ServiceName {}
@@ -3373,6 +3374,17 @@ public abstract class Context {
      * @hide
      */
     public static final String RADIO_SERVICE = "radio";
+
+    /**
+     * Use with {@link #getSystemService} to retrieve a
+     * {@link android.app.NotificationManager} for informing the user of
+     * background events.
+     *
+     * @see #getSystemService
+     * @see android.app.NotificationManager
+     */
+    public static final String TANVAS_HAPTIC_SERVICE = "tanvashaptic";
+
 
     /**
      * Determine whether the given permission is allowed for a particular

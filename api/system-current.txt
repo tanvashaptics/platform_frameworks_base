@@ -8021,6 +8021,7 @@ package android.content {
     field public static final java.lang.String SEARCH_SERVICE = "search";
     field public static final java.lang.String SENSOR_SERVICE = "sensor";
     field public static final java.lang.String STORAGE_SERVICE = "storage";
+    field public static final java.lang.String TANVAS_HAPTIC_SERVICE = "tanvashaptic";
     field public static final java.lang.String TELECOM_SERVICE = "telecom";
     field public static final java.lang.String TELEPHONY_SERVICE = "phone";
     field public static final java.lang.String TELEPHONY_SUBSCRIPTION_SERVICE = "telephony_subscription_service";
@@ -44559,6 +44560,79 @@ package android.widget {
     method public void setOnZoomOutClickListener(android.view.View.OnClickListener);
     method public void setZoomSpeed(long);
     method public void show();
+  }
+
+}
+
+package co.tanvas.haptics {
+
+  public abstract interface ITanvasHapticService implements android.os.IInterface {
+    method public abstract void addSprite(long, long) throws android.os.RemoteException;
+    method public abstract void clearActiveManagers() throws android.os.RemoteException;
+    method public abstract long createManager() throws android.os.RemoteException;
+    method public abstract long createMaterial() throws android.os.RemoteException;
+    method public abstract long createSprite() throws android.os.RemoteException;
+    method public abstract long createTexture() throws android.os.RemoteException;
+    method public abstract void destroyManager(long) throws android.os.RemoteException;
+    method public abstract void destroyMaterial(long) throws android.os.RemoteException;
+    method public abstract void destroySprite(long) throws android.os.RemoteException;
+    method public abstract void destroySystem() throws android.os.RemoteException;
+    method public abstract void destroyTexture(long) throws android.os.RemoteException;
+    method public abstract int getMaterialBlendMode(long, int) throws android.os.RemoteException;
+    method public abstract long getMaterialShader(long) throws android.os.RemoteException;
+    method public abstract long getMaterialTexture(long, int) throws android.os.RemoteException;
+    method public abstract int getMaterialType(long) throws android.os.RemoteException;
+    method public abstract android.graphics.PointF[] getMaterialUV(long, int) throws android.os.RemoteException;
+    method public abstract float getSpriteDepth(long) throws android.os.RemoteException;
+    method public abstract long getSpriteMaterial(long) throws android.os.RemoteException;
+    method public abstract android.graphics.PointF getSpritePosition(long) throws android.os.RemoteException;
+    method public abstract co.tanvas.haptics.SerializedSizeF getSpriteSize(long) throws android.os.RemoteException;
+    method public abstract void getTextureData(long, co.tanvas.haptics.SerializedByteBuffer) throws android.os.RemoteException;
+    method public abstract long getTextureDataSize(long) throws android.os.RemoteException;
+    method public abstract co.tanvas.haptics.SerializedSizeF getTextureSize(long) throws android.os.RemoteException;
+    method public abstract int getTextureType(long) throws android.os.RemoteException;
+    method public abstract void initializeSystem() throws android.os.RemoteException;
+    method public abstract void removeSprite(long, long) throws android.os.RemoteException;
+    method public abstract void setApplicationActive(int, int, boolean) throws android.os.RemoteException;
+    method public abstract void setManagerActive(long, boolean) throws android.os.RemoteException;
+    method public abstract void setManagerTransform(long, float, float, float, float, float) throws android.os.RemoteException;
+    method public abstract void setMaterialBlendMode(long, int, int) throws android.os.RemoteException;
+    method public abstract void setMaterialShader(long, long) throws android.os.RemoteException;
+    method public abstract void setMaterialTexture(long, int, long) throws android.os.RemoteException;
+    method public abstract void setMaterialType(long, int) throws android.os.RemoteException;
+    method public abstract void setMaterialUV(long, int, android.graphics.PointF, android.graphics.PointF, android.graphics.PointF, android.graphics.PointF) throws android.os.RemoteException;
+    method public abstract void setSpriteDepth(long, float) throws android.os.RemoteException;
+    method public abstract void setSpriteMaterial(long, long) throws android.os.RemoteException;
+    method public abstract void setSpritePosition(long, android.graphics.PointF) throws android.os.RemoteException;
+    method public abstract void setSpriteSize(long, co.tanvas.haptics.SerializedSizeF) throws android.os.RemoteException;
+    method public abstract void setTextureData(long, co.tanvas.haptics.SerializedByteBuffer) throws android.os.RemoteException;
+    method public abstract void setTextureSize(long, co.tanvas.haptics.SerializedSizeF) throws android.os.RemoteException;
+    method public abstract void setTextureType(long, int) throws android.os.RemoteException;
+  }
+
+  public static abstract class ITanvasHapticService.Stub extends android.os.Binder implements co.tanvas.haptics.ITanvasHapticService {
+    ctor public ITanvasHapticService.Stub();
+    method public android.os.IBinder asBinder();
+    method public static co.tanvas.haptics.ITanvasHapticService asInterface(android.os.IBinder);
+    method public boolean onTransact(int, android.os.Parcel, android.os.Parcel, int) throws android.os.RemoteException;
+  }
+
+  public class SerializedByteBuffer implements android.os.Parcelable {
+    ctor public SerializedByteBuffer();
+    method public int describeContents();
+    method public void readFromParcel(android.os.Parcel);
+    method public void writeToParcel(android.os.Parcel, int);
+    field public static final android.os.Parcelable.Creator<co.tanvas.haptics.SerializedByteBuffer> CREATOR;
+    field public java.nio.ByteBuffer mData;
+  }
+
+  public class SerializedSizeF implements android.os.Parcelable {
+    ctor public SerializedSizeF();
+    method public int describeContents();
+    method public void readFromParcel(android.os.Parcel);
+    method public void writeToParcel(android.os.Parcel, int);
+    field public static final android.os.Parcelable.Creator<co.tanvas.haptics.SerializedSizeF> CREATOR;
+    field public android.util.SizeF size;
   }
 
 }

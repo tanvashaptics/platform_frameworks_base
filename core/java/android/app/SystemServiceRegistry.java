@@ -117,6 +117,9 @@ import android.view.accessibility.CaptioningManager;
 import android.view.inputmethod.InputMethodManager;
 import android.view.textservice.TextServicesManager;
 
+import co.tanvas.haptics.ITanvasHapticService;
+import co.tanvas.haptics.TanvasHapticManager;
+
 import java.util.HashMap;
 
 /**
@@ -704,6 +707,20 @@ final class SystemServiceRegistry {
             public RadioManager createService(ContextImpl ctx) {
                 return new RadioManager(ctx);
             }});
+        registerService(Context.TANVAS_HAPTIC_SERVICE, TanvasHapticManager.class,
+                new CachedServiceFetcher<TanvasHapticManager>() 
+		{
+            @Override
+            public TanvasHapticManager createService(ContextImpl ctx) 
+			{
+			IBinder b = ServiceManager.getService(Context.TANVAS_HAPTIC_SERVICE);
+			if (b == null)
+			{
+				return null;
+			}
+			return new TanvasHapticManager(ITanvasHapticService.Stub.asInterface(b));
+            }
+		});
     }
 
     /**
