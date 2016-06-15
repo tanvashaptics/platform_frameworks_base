@@ -94,6 +94,7 @@ import com.android.server.wm.WindowManagerService;
 
 import co.tanvas.haptics.TanvasHapticManager;
 import co.tanvas.haptics.HapticBinderStub;
+import co.tanvas.haptics.TanvasProcessMonitor;
 
 import dalvik.system.VMRuntime;
 
@@ -433,6 +434,7 @@ public final class SystemServer {
         EntropyMixer entropyMixer = null;
         CameraService cameraService = null;
 	HapticBinderStub hapticBinder = null;
+	TanvasProcessMonitor tanvasProcessMonitor = null;
 
         boolean disableStorage = SystemProperties.getBoolean("config.disable_storage", false);
         boolean disableBluetooth = SystemProperties.getBoolean("config.disable_bluetooth", false);
@@ -505,6 +507,7 @@ public final class SystemServer {
                 Slog.i(TAG, "Haptic Manager");
                 hapticBinder = new HapticBinderStub();
                 ServiceManager.addService(Context.TANVAS_HAPTIC_SERVICE, hapticBinder);
+		tanvasProcessMonitor.getInstance().RegisterListener(hapticBinder);
             }
             else
             {
