@@ -499,15 +499,15 @@ public final class SystemServer {
             final Watchdog watchdog = Watchdog.getInstance();
             watchdog.init(context, mActivityManagerService);
 
-	    File disableTanvas = new File("/data/user/0/co.tanvas.tanvassettings/files/tanvas_service_disabled");
+			File disableTanvas = new File("/data/disable_tanvas");
             Slog.i(TAG, "Input Manager");
             inputManager = new InputManagerService(context);
-	    if (disableTanvas.exists() == false)
+			if (disableTanvas.exists() == false)
             {
                 Slog.i(TAG, "Haptic Manager");
                 hapticBinder = new HapticBinderStub();
                 ServiceManager.addService(Context.TANVAS_HAPTIC_SERVICE, hapticBinder);
-		tanvasProcessMonitor.getInstance().RegisterListener(hapticBinder);
+				tanvasProcessMonitor.getInstance().RegisterListener(hapticBinder);
             }
             else
             {
