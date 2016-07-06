@@ -499,7 +499,7 @@ public final class SystemServer {
             final Watchdog watchdog = Watchdog.getInstance();
             watchdog.init(context, mActivityManagerService);
 
-			File disableTanvas = new File("/data/disable_tanvas");
+			File disableTanvas = new File("/data/user/0/co.tanvas.tanvassettings/files/tanvas_service_disabled");
             Slog.i(TAG, "Input Manager");
             inputManager = new InputManagerService(context);
 			if (disableTanvas.exists() == false)
